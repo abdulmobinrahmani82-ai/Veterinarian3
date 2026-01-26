@@ -1,54 +1,48 @@
 package menu;
-
+import exception.InvalidInputException;
 import model.Pet;
 import model.Owner;
-import exception.InvalidInputException;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class MenuManager implements Menu {
 
-    private ArrayList<Pet> pets = new ArrayList<>();
-    private ArrayList<Owner> owners = new ArrayList<>();
-    private Scanner scanner = new Scanner(System.in);
+        private ArrayList<Pet> pets = new ArrayList<>();
+        private ArrayList<Owner> owners = new ArrayList<>();
+        private Scanner scanner = new Scanner(System.in);
 
-    @Override
-    public void displayMenu() {
-        System.out.println("1. Add Pet");
-        System.out.println("2. View Pets");
-        System.out.println("3. Add Owner");
-        System.out.println("4. View Owners");
-        System.out.println("0. Exit");
-    }
+            @Override
+            public void displayMenu () {
+                System.out.println("1. Add pet");
+                System.out.println("2. view pet");
+                System.out.println("3. Add Owner");
+                System.out.println("4. view Owner");
+                System.out.println("0. Exit");
+            }
+            @Override
+    public void run(){
+                boolean running = true;
+                while (running) {
+                displayMenu();
+                try {
+                    int choice = Integer.parseInt(scanner.nextLine());
+                    switch (choice){
+                        case 1:
+                            addPet();
+                            break;
+                        case 2:
+                            viewPets();
+                            break;
+                        case 3 :
+                            addOwner();
+                            break;
+                        case 4:
+                            viewOwners();
+                            break;
+                        default:
+                            throw new  InvalidInputException("invalid choice");
 
-    @Override
-    public void run() {
-        boolean running = true;
-        while (running) {
-            displayMenu();
-            try {
-                int choice = Integer.parseInt(scanner.nextLine());
-
-                switch (choice) {
-                    case 1:
-                        addPet();
-                        break;
-                    case 2:
-                        viewPets();
-                        break;
-                    case 3:
-                        addOwner();
-                        break;
-                    case 4:
-                        viewOwners();
-                        break;
-                    case 0:
-                        running = false;
-                        break;
-                    default:
-                        throw new InvalidInputException("Invalid choice");
                 }
-
             } catch (NumberFormatException e) {
                 System.out.println("Invalid number");
             } catch (IllegalArgumentException e) {
